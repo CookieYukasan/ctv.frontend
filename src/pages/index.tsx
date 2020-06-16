@@ -1,9 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaCheck } from "react-icons/fa";
 import { MdClose } from "react-icons/md";
-
-import api from "../services/api";
-import * as auth from "../services/auth";
 
 import {
   Container,
@@ -21,11 +18,6 @@ export default function Home() {
   const [state, setState] = useState(false);
   const [userFocus, setUserFocus] = useState<boolean>(false);
   const [passFocus, setPassFocus] = useState<boolean>(false);
-
-  async function loadUsers() {
-    //auth.login("cookie@666");
-    //await api.post("/users");
-  }
 
   return (
     <Container>
@@ -53,9 +45,6 @@ export default function Home() {
             />
           </InputContainer>
         </FormContainer>
-        {/*<Button success>
-          LOGADO <FaCheck size={15} color="white" />
-        </Button>*/}
         {state ? (
           <Button
             success={state}
