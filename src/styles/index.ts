@@ -51,6 +51,7 @@ export const Button = styled.button<IButtonProps>`
   justify-content: space-evenly;
   align-items: center;
   font-family: "Source Sans Pro", sans-serif;
+  outline: none;
 `;
 
 export const FormContainer = styled.div`
@@ -99,6 +100,7 @@ export const Input = styled.input`
   border-bottom: 2px;
   border-bottom-color: #808080;
   border-bottom-style: solid;
+  outline: none;
 
   &:focus {
     font-weight: bold;
