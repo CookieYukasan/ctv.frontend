@@ -12,7 +12,7 @@ import {
   InputContainer,
   InputLabel,
   PaymentMethods,
-} from "./styles";
+} from "~/styles/index";
 
 export default function Home() {
   const [state, setState] = useState(false);
