@@ -19,18 +19,13 @@ interface ICredentialsProps {
 
 export default function Home() {
   const [credentials, setCredentials] = useState<ICredentialsProps>({
-    username: "Cookie Yukasan",
-    password: "teste",
+    username: "cookinho",
+    password: "littlecookie",
   });
 
-  function handleLogin() {
-    api.post(
-      "/users",
-      {},
-      {
-        auth: credentials,
-      }
-    );
+  async function handleLogin() {
+    const response = await api.post("/sessions", {}, { auth: credentials });
+    console.log(response.data);
   }
 
   return (
