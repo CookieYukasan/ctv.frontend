@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Container = styled.div`
   padding: 0;
@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #7156CB 0%, #A552C4 95.83%);
+  background: linear-gradient(180deg, #7156cb 0%, #a552c4 95.83%);
 `;
 
 export const MainContainer = styled.div`
@@ -24,7 +24,6 @@ export const MainContainer = styled.div`
   border-radius: 5px;
   padding: 10px;
   font-family: "Inter", sans-serif;
-
 `;
 
 export const Logo = styled.img`
@@ -40,7 +39,7 @@ interface IButtonProps {
 export const Button = styled.button<IButtonProps>`
   width: 219px;
   height: 49px;
-  background: #8155C9;
+  background: #8155c9;
   border-radius: 8px;
   color: white;
   font-size: 19px;
@@ -61,7 +60,7 @@ export const Input = styled.input`
   border-radius: 5px;
   border: 0;
   outline: none;
-  background: #F0F0F5;
+  background: #f0f0f5;
   padding: 0px 15px 0px 15px;
   transition: transform 150ms ease-out, font-size 150ms ease-out;
 
@@ -71,8 +70,8 @@ export const Input = styled.input`
 
   &:focus {
     transform: scale(1.05);
-    background: #FFF;
-    border: 1px solid #6B75FF;
+    background: #fff;
+    border: 1px solid #6b75ff;
     color: #2f163d;
   }
 `;
@@ -90,13 +89,13 @@ export const WarningBar = styled.div`
   margin-bottom: 19px;
   border-radius: 8px;
 
-  @media (min-width: 3840px){
+  @media (min-width: 3840px) {
     width: 16vw;
   }
-`
+`;
 
 export const WarningText = styled.p`
   font-size: 15px;
   font-weight: 400;
-  color: #FFBE4F;
-`
+  color: #ffbe4f;
+`;

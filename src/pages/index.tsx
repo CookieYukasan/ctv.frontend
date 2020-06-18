@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import api from '~/services/api';
+import api from "~/services/api";
 
 import {
   Container,
@@ -19,14 +19,18 @@ interface ICredentialsProps {
 
 export default function Home() {
   const [credentials, setCredentials] = useState<ICredentialsProps>({
-    username: 'Cookie Yukasan',
-    password: 'teste'
+    username: "Cookie Yukasan",
+    password: "teste",
   });
 
-  function handleLogin(){
-    api.post('/users', {}, {
-      auth: credentials
-    })
+  function handleLogin() {
+    api.post(
+      "/users",
+      {},
+      {
+        auth: credentials,
+      }
+    );
   }
 
   return (
@@ -36,15 +40,27 @@ export default function Home() {
         <WarningBar>
           <WarningText>Qualquer problema entre em contato conosco!</WarningText>
         </WarningBar>
-        <Input placeholder="Usuário"
+        <Input
+          placeholder="Usuário"
           type="text"
           value={credentials.username}
-          
+          onChange={(e) =>
+            setCredentials({
+              username: e.target.value,
+              password: credentials.password,
+            })
+          }
         />
         <Input
           placeholder="Senha"
           type="password"
-          value={credentials.username}
+          value={credentials.password}
+          onChange={(e) =>
+            setCredentials({
+              username: credentials.username,
+              password: e.target.value,
+            })
+          }
         />
         <Button onClick={handleLogin}>Entrar</Button>
       </MainContainer>
