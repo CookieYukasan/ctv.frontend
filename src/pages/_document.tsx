@@ -2,7 +2,6 @@ import Document, {
   DocumentContext,
   Html,
   Main,
-  Head,
   NextScript,
 } from "next/document";
 import { ServerStyleSheet } from "styled-components";
@@ -32,23 +31,5 @@ export default class CatVDocument extends Document {
     } finally {
       sheet.seal();
     }
-  }
-
-  render() {
-    return (
-      <Html lang="pt-br">
-        <Head>
-          <title>CatV - Rajk & Cookie</title>
-          <link
-            href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
-        <body style={{ margin: 0, padding: 0 }}>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
   }
 }
