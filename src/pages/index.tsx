@@ -1,8 +1,10 @@
+import { NextPage } from "next";
 import { useState } from "react";
 import Router from "next/router";
 
+import { AlwaysLogged } from "~/components";
 import api from "~/services/api";
-import * as auth from "~/services/auth";
+import { Auth } from "~/services/auth";
 
 import {
   Container,
@@ -26,20 +28,25 @@ interface ICredentialsProps {
   password: string;
 }
 
-const Home = () => {
+interface HomeProps {
+  isLogged: boolean;
+}
+
+const Home: NextPage<HomeProps> = ({ isLogged }) => {
   const [error, setError] = useState<IErrorProps>({});
   const [credentials, setCredentials] = useState<ICredentialsProps>({
     username: "",
     password: "",
   });
 
+  if (isLogged) return <AlwaysLogged />;
+
   async function handleLogin() {
     const response = await api.post("/sessions", {}, { auth: credentials });
     if (response.data.token) {
-      auth.login(response.data.token);
+      Auth.login(response.data.token);
       Router.push("/dashboard");
     } else {
-      console.log(response.data);
       setError(response.data[0]);
     }
   }
@@ -91,10 +98,11 @@ const Home = () => {
   );
 };
 
-Home.getInitialProps = () => {
-  if (auth.isAuthenticated()) {
-    Router.push("/dashboard");
-  }
+Home.getInitialProps = async () => {
+  const auth = await Auth.getToken();
+  const isLogged = auth !== undefined ? true : false;
+
+  return { isLogged };
 };
 
 export default Home;
