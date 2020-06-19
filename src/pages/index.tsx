@@ -26,7 +26,7 @@ interface ICredentialsProps {
   password: string;
 }
 
-export default function Home() {
+const Home = ({ isLogged }) => {
   const [error, setError] = useState<IErrorProps>({});
   const [credentials, setCredentials] = useState<ICredentialsProps>({
     username: "",
@@ -89,4 +89,12 @@ export default function Home() {
       </MainContainer>
     </Container>
   );
-}
+};
+
+Home.getInitialProps = () => {
+  if (auth.isAuthenticated()) {
+    Router.push("/dashboard");
+  }
+};
+
+export default Home;
