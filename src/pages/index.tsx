@@ -12,12 +12,13 @@ import {
   Input,
   WarningBar,
   WarningText,
-  PasswordErrorText,
+  InputErrorText,
 } from "~/page-styles/index";
 
 interface IErrorProps {
   message?: string;
   field?: string;
+  validation?: string;
 }
 
 interface ICredentialsProps {
@@ -38,7 +39,8 @@ export default function Home() {
       auth.login(response.data.token);
       Router.push("/dashboard");
     } else {
-      setError(response.data);
+      console.log(response.data);
+      setError(response.data[0]);
     }
   }
 
@@ -51,18 +53,24 @@ export default function Home() {
         </WarningBar>
         <Input
           passFailed={false}
+          userFailed={error.field === "username" ? true : false}
           placeholder="Usuário"
           type="text"
           value={credentials.username}
-          onChange={(e) =>
+          onChange={(e) => {
+            error.field === "username" && setError({});
             setCredentials({
               username: e.target.value,
               password: credentials.password,
-            })
-          }
+            });
+          }}
         />
+        {error.field === "username" && (
+          <InputErrorText error={error.field}>{error.message}</InputErrorText>
+        )}
         <Input
           passFailed={error.field === "password" ? true : false}
+          userFailed={false}
           placeholder="Senha"
           type="password"
           value={credentials.password}
@@ -75,7 +83,7 @@ export default function Home() {
           }}
         />
         {error.field === "password" && (
-          <PasswordErrorText>{error.message}</PasswordErrorText>
+          <InputErrorText error={error.field}>{error.message}</InputErrorText>
         )}
         <Button onClick={handleLogin}>Entrar</Button>
       </MainContainer>
