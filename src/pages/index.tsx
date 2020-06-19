@@ -34,7 +34,7 @@ export default function Home() {
 
   async function handleLogin() {
     const response = await api.post("/sessions", {}, { auth: credentials });
-    if (response.status === 201) {
+    if (response.data.token) {
       auth.login(response.data.token);
       Router.push("/dashboard");
     } else {
