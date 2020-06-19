@@ -26,7 +26,7 @@ interface ICredentialsProps {
   password: string;
 }
 
-const Home = ({ isLogged }) => {
+const Home = () => {
   const [error, setError] = useState<IErrorProps>({});
   const [credentials, setCredentials] = useState<ICredentialsProps>({
     username: "",
