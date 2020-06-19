@@ -52,6 +52,7 @@ export const Button = styled.button<IButtonProps>`
   align-items: center;
   font-family: "Inter", sans-serif;
   outline: none;
+  cursor: pointer;
 `;
 
 interface InputProps {
