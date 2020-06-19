@@ -1,6 +1,8 @@
 import { useState } from "react";
+import Router from "next/router";
 
 import api from "~/services/api";
+import * as auth from "~/services/auth";
 
 import {
   Container,
@@ -10,7 +12,13 @@ import {
   Input,
   WarningBar,
   WarningText,
+  PasswordErrorText,
 } from "~/page-styles/index";
+
+interface IErrorProps {
+  message?: string;
+  field?: string;
+}
 
 interface ICredentialsProps {
   username: string;
@@ -18,14 +26,20 @@ interface ICredentialsProps {
 }
 
 export default function Home() {
+  const [error, setError] = useState<IErrorProps>({});
   const [credentials, setCredentials] = useState<ICredentialsProps>({
-    username: "cookinho",
-    password: "littlecookie",
+    username: "",
+    password: "",
   });
 
   async function handleLogin() {
     const response = await api.post("/sessions", {}, { auth: credentials });
-    console.log(response.data);
+    if (response.status === 201) {
+      auth.login(response.data.token);
+      Router.push("/dashboard");
+    } else {
+      setError(response.data);
+    }
   }
 
   return (
@@ -36,6 +50,7 @@ export default function Home() {
           <WarningText>Qualquer problema entre em contato conosco!</WarningText>
         </WarningBar>
         <Input
+          passFailed={false}
           placeholder="Usuário"
           type="text"
           value={credentials.username}
@@ -47,16 +62,21 @@ export default function Home() {
           }
         />
         <Input
+          passFailed={error.field === "password" ? true : false}
           placeholder="Senha"
           type="password"
           value={credentials.password}
-          onChange={(e) =>
+          onChange={(e) => {
+            error.field === "password" && setError({});
             setCredentials({
               username: credentials.username,
               password: e.target.value,
-            })
-          }
+            });
+          }}
         />
+        {error.field === "password" && (
+          <PasswordErrorText>{error.message}</PasswordErrorText>
+        )}
         <Button onClick={handleLogin}>Entrar</Button>
       </MainContainer>
     </Container>

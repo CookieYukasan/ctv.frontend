@@ -54,7 +54,11 @@ export const Button = styled.button<IButtonProps>`
   outline: none;
 `;
 
-export const Input = styled.input`
+interface InputProps {
+  passFailed?: boolean;
+}
+
+export const Input = styled.input<InputProps>`
   width: 34em;
   height: 48px;
   border-radius: 5px;
@@ -63,6 +67,7 @@ export const Input = styled.input`
   background: #f0f0f5;
   padding: 0px 15px 0px 15px;
   transition: transform 150ms ease-out, font-size 150ms ease-out;
+  border: ${(props) => props.passFailed && "1px solid #FF695B"};
 
   & + & {
     margin-top: 15px;
@@ -71,7 +76,8 @@ export const Input = styled.input`
   &:focus {
     transform: scale(1.05);
     background: #fff;
-    border: 1px solid #6b75ff;
+    border: ${(props) =>
+      props.passFailed ? "1px solid #FF695B" : "1px solid #6b75ff"};
     color: #2f163d;
   }
 `;
@@ -98,4 +104,11 @@ export const WarningText = styled.p`
   font-size: 15px;
   font-weight: 400;
   color: #ffbe4f;
+`;
+
+export const PasswordErrorText = styled.p`
+  font-size: 13px;
+  color: #ff695b;
+  width: 100%;
+  margin: 5px 0px 0px -24em;
 `;
